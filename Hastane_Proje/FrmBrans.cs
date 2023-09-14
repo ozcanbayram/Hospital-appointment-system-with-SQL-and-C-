@@ -61,7 +61,7 @@ namespace Hastane_Proje
             txtBrans.Text = dataGridView1.Rows[secilen].Cells[1].Value.ToString();
         }
 
-        private void btnSil_Click(object sender, EventArgs e) 
+        private void btnSil_Click(object sender, EventArgs e)  // All debugging is complated.
         {
             SqlCommand komut = new SqlCommand("Delete from Tbl_brans where bransid=@p1", baglan.baglanti());
             komut.Parameters.AddWithValue("@p1", txtId.Text);
