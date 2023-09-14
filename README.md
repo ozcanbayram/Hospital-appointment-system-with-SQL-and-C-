@@ -1,6 +1,12 @@
 # Hospital-appointment-system-with-SQL-and-C-
+
+
 <h3 align="left">Languages ​​and Tools:</h3>
-<img src = "https://www.freeiconspng.com/uploads/c-logo-icon-18.png" alt = "csharp" width = "50" height = "50"/><img src = "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt = "mysql" width = "40" height = "40"/> 
+
+![Langs](https://skillicons.dev/icons?i=cs,mysql,visualstudio,")
+
+
+
 This desktop application can be used by any hospital. Three different groups of people can use this program: patients, doctors, and hospital secretaries. Patients can register at the hospital, make an appointment with the doctor they want, and send their complaints to the doctor even before they are examined. Doctors can see their own information, upcoming appointments, patient complaints, and announcements made by the hospital management from their own information screen. Secretaries can easily record new doctors in the database, create and edit appointments, prepare announcements, add and update new branches. They can easily provide all the background facilities that a private hospital may need. I made this project with the aim of taking my C# and SQL skills one step further.
 
 Türkçe:
