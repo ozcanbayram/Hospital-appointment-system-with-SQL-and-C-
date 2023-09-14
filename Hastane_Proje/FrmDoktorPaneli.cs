@@ -24,7 +24,7 @@ namespace Hastane_Proje
         {
             //Doktorların ismini veritabanından dataGridWiew'e yazdırma:
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter("select * from Tbl_Doktorlar ",baglan.baglanti());
+            SqlDataAdapter da = new SqlDataAdapter("select * from Tbl_Doktorlar ", baglan.baglanti());
             da.Fill(dt);
             dataGridView1.DataSource = dt;
             baglan.baglanti().Close();
@@ -39,24 +39,35 @@ namespace Hastane_Proje
             baglan.baglanti().Close();
         }
 
-        private void btnEkle_Click(object sender, EventArgs e)
+        private void btnEkle_Click(object sender, EventArgs e) // All debuging is complated.
         {
             //Sisteme ve veri tabanına yeni doktor ekleme:
-            SqlCommand komut = new SqlCommand("insert into Tbl_Doktorlar (DoktorAd,DoktorSoyad,DoktorBrans,DoktorSifre,DoktorTc) values (@p1,@p2,@p3,@p4,@p5)",baglan.baglanti());
+            SqlCommand komut = new SqlCommand("insert into Tbl_Doktorlar (DoktorAd,DoktorSoyad,DoktorBrans,DoktorSifre,DoktorTc) values (@p1,@p2,@p3,@p4,@p5)", baglan.baglanti());
             komut.Parameters.AddWithValue("@p1", txtAd.Text);
             komut.Parameters.AddWithValue("@p2", txtSoyad.Text);
             komut.Parameters.AddWithValue("@p3", cmbBrans.Text);
             komut.Parameters.AddWithValue("@p4", txtSifre.Text);
             komut.Parameters.AddWithValue("@p5", mskTC.Text);
-            komut.ExecuteNonQuery();
-            baglan.baglanti().Close();
-            MessageBox.Show("Yeni Doktor sisteme başarıyla eklendi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (txtAd.Text == "" || txtSoyad.Text == "" || cmbBrans.Text == "" || txtSifre.Text == "" || mskTC.Text == "")
+            {
+                MessageBox.Show("Eklenecek doktorun bilgilerini eksiksiz giriniz.");
+            }
+
+            else
+            {
+                komut.ExecuteNonQuery();
+                baglan.baglanti().Close();
+                MessageBox.Show("Yeni Doktor sisteme başarıyla eklendi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+
 
         }
 
         private void cmbBrans_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtSifre_TextChanged(object sender, EventArgs e)
@@ -74,16 +85,27 @@ namespace Hastane_Proje
             txtSifre.Text = dataGridView1.Rows[secilen].Cells[5].Value.ToString();
         }
 
-        private void btnSil_Click(object sender, EventArgs e)
+        private void btnSil_Click(object sender, EventArgs e) // All debuging is complated.
         {
-            SqlCommand sil = new SqlCommand("Delete from Tbl_Doktorlar where doktorTC=@p1",baglan.baglanti());
+            SqlCommand sil = new SqlCommand("Delete from Tbl_Doktorlar where doktorTC=@p1", baglan.baglanti());
             sil.Parameters.AddWithValue("@p1", mskTC.Text);
-            sil.ExecuteNonQuery();
-            baglan.baglanti().Close();
-            MessageBox.Show("Doktor sistemden silindi.");
+
+            if (mskTC.Text == "")
+            {
+                MessageBox.Show("Silmek istediğiniz doktoru seçiniz ya da TC kimlik numarasını giriniz.");
+            }
+
+            else
+            {
+                sil.ExecuteNonQuery();
+                baglan.baglanti().Close();
+                MessageBox.Show("Doktor sistemden silindi.");
+
+            }
+
         }
 
-        private void btnGuncelle_Click(object sender, EventArgs e)
+        private void btnGuncelle_Click(object sender, EventArgs e)  // No debugg
         {
             SqlCommand komut = new SqlCommand("Update Tbl_Doktorlar set Doktorad = @p1, doktorsoyad=@p2,doktorBrans=@p3, doktorSifre=@p5 where DoktorTC=@p4 ", baglan.baglanti());
             komut.Parameters.AddWithValue("@p1", txtAd.Text);

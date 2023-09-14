@@ -85,7 +85,7 @@ namespace Hastane_Proje
             komut.Parameters.AddWithValue("@p3", txtId.Text);
             komut.ExecuteNonQuery();
             bagla.baglanti().Close();
-            MessageBox.Show("Randevu alındı.","Uyarı",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("Randevu alındı.","Uyarı",MessageBoxButtons.OK, MessageBoxIcon.Warning); //Debugging is complated.
         }
 
         private void label7_Click(object sender, EventArgs e)

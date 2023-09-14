@@ -53,12 +53,12 @@ namespace Hastane_Proje
             //Branşları veritanbanından comboboxa taşıma:
             SqlCommand komut2 = new SqlCommand("select bransAd from Tbl_brans", baglan.baglanti());
             SqlDataReader dr2 = komut2.ExecuteReader();
-            while(dr2.Read())
+            while (dr2.Read())
             {
                 cmbBrans.Items.Add(dr2[0].ToString());
             }
             baglan.baglanti();
-            
+
         }
 
         private void btnKaydet_Click(object sender, EventArgs e)
@@ -68,9 +68,19 @@ namespace Hastane_Proje
             komut_kaydet.Parameters.AddWithValue("@r2", mskSaat.Text);
             komut_kaydet.Parameters.AddWithValue("@r3", cmbBrans.Text);
             komut_kaydet.Parameters.AddWithValue("@r4", cmbDoktor.Text);
-            komut_kaydet.ExecuteNonQuery();
-            baglan.baglanti().Close();
-            MessageBox.Show("Randevu oluşturuldu.");
+
+            if (mskTarih.Text == "" || mskSaat.Text == "" || cmbBrans.Text == "" || cmbDoktor.Text == "")
+            {
+                MessageBox.Show("Randevu bilgilerini eksiksiz giriniz.");
+            }
+            else
+            {
+                komut_kaydet.ExecuteNonQuery();
+                baglan.baglanti().Close();
+                MessageBox.Show("Randevu oluşturuldu.");
+            }
+
+           
         }
 
         private void cmbBrans_SelectedIndexChanged(object sender, EventArgs e)
@@ -90,12 +100,23 @@ namespace Hastane_Proje
 
         private void btnDuyuruOlustur_Click(object sender, EventArgs e)
         {
-            SqlCommand komut = new SqlCommand("insert into Tbl_Duyurular (duyuru) values (@p1)",baglan.baglanti());
+            SqlCommand komut = new SqlCommand("insert into Tbl_Duyurular (duyuru) values (@p1)", baglan.baglanti());
             komut.Parameters.AddWithValue("@p1", rchDuyuru.Text);
-            komut.ExecuteNonQuery();
-            rchDuyuru.Clear();
-            baglan.baglanti().Close();
-            MessageBox.Show("Duyuru oluşturuldu.");
+
+            if(rchDuyuru.Text == "")
+            {
+                MessageBox.Show("Duyuru kutucuğu boş bırakılamaz.");
+            }
+
+            else
+            {
+                komut.ExecuteNonQuery();
+                rchDuyuru.Clear();
+                baglan.baglanti().Close();
+                MessageBox.Show("Duyuru oluşturuldu.");
+            }
+
+            
         }
 
         private void btnDoktorPanel_Click(object sender, EventArgs e)

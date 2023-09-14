@@ -35,13 +35,23 @@ namespace Hastane_Proje
 
         }
 
-        private void btnEkle_Click(object sender, EventArgs e)
+        private void btnEkle_Click(object sender, EventArgs e) // All debugging is complated.
         {
             SqlCommand komut = new SqlCommand("insert into Tbl_Brans (BransAd) values (@p1)",baglan.baglanti());
             komut.Parameters.AddWithValue("@p1", txtBrans.Text);
-            komut.ExecuteNonQuery();
-            baglan.baglanti().Close();
-            MessageBox.Show("Yeni branş sisteme eklendi.","Bilgi",MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (txtBrans.Text == "")
+            {
+                MessageBox.Show("Eklemek istediğiniz branşın adını girmeniz yederlidir.");
+            }
+            else
+            {
+                komut.ExecuteNonQuery();
+                baglan.baglanti().Close();
+                MessageBox.Show("Yeni branş sisteme eklendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -51,13 +61,23 @@ namespace Hastane_Proje
             txtBrans.Text = dataGridView1.Rows[secilen].Cells[1].Value.ToString();
         }
 
-        private void btnSil_Click(object sender, EventArgs e)
+        private void btnSil_Click(object sender, EventArgs e) 
         {
             SqlCommand komut = new SqlCommand("Delete from Tbl_brans where bransid=@p1", baglan.baglanti());
             komut.Parameters.AddWithValue("@p1", txtId.Text);
-            komut.ExecuteNonQuery();
-            baglan.baglanti().Close();
-            MessageBox.Show("Branş sistemden silindi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (txtId.Text == "")
+            {
+                MessageBox.Show("Silmek istediğiniz branşı seçmeilisniz ya da id numarasını girmelisiniz.");
+            }
+
+            else
+            {
+                komut.ExecuteNonQuery();
+                baglan.baglanti().Close();
+                MessageBox.Show("Branş sistemden silindi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+          
         }
 
         private void btnGuncelle_Click(object sender, EventArgs e)
